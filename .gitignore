@@ -5,3 +5,5 @@
 
 .DS_Store
 ._*
+
+storage/database.sqlite
