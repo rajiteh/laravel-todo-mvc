@@ -2,7 +2,7 @@
 
 namespace TodoMVC\Http\Controllers\API\v1;
 
-use TodoMVC\Http\Requests;
+use Illuminate\Http\Request;
 use TodoMVC\Repositories\Contracts\TaskRepositoryInterface as TaskRepository;
 
 class TasksAPIController extends APIController
@@ -17,14 +17,15 @@ class TasksAPIController extends APIController
         $this->repository = $checklist;
     }
 
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return Response
+     * @param Request $req
+     * @param $checkListId
+     * @return \Illuminate\Http\Response
      */
-    public function index($checkListId)
+    public function index(Request $req, $checkListId)
     {
-        return $this->repository->ownedByCheckList($checkListId);
+        return self::jsonResponse($req, $this->repository->ownedByCheckList($checkListId));
     }
 
 
@@ -38,15 +39,16 @@ class TasksAPIController extends APIController
         //
     }
 
+
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
+     * @param Request $req
+     * @param $checkListId
+     * @param $id
+     * @return \Illuminate\Http\Response
      */
-    public function show($checkListId, $id)
+    public function show(Request $req, $checkListId, $id)
     {
-        return $this->repository->find($id);
+        return self::jsonResponse($req, $this->repository->find($id));
     }
 
 

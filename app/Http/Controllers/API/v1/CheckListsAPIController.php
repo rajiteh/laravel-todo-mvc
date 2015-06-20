@@ -4,8 +4,9 @@ namespace TodoMVC\Http\Controllers\API\v1;
 
 
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use TodoMVC\Http\Requests;
+
 use TodoMVC\Repositories\Contracts\CheckListRepositoryInterface as CheckListRepository;
 
 /**
@@ -26,12 +27,12 @@ class CheckListsAPIController extends APIController
 
     /**
      * Display a listing of the resource.
-     *
+     * @param Request $req
      * @return Response
      */
-    public function index()
+    public function index(Request $req)
     {
-        return $this->repository->all();
+        return self::jsonResponse($req, $this->repository->all());
     }
 
 
@@ -48,12 +49,13 @@ class CheckListsAPIController extends APIController
     /**
      * Display the specified resource.
      *
+     * @param  Request $req
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show(Request $req, $id)
     {
-        return $this->repository->find($id);
+        return self::jsonResponse($req, $this->repository->find($id));
     }
 
     /**

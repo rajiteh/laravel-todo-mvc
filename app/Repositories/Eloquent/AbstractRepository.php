@@ -8,9 +8,7 @@
 
 namespace TodoMVC\Repositories\Eloquent;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
-use PhpSpec\Exception\Fracture\InterfaceNotImplementedException;
 use TodoMVC\Models\ModelInterface;
 use TodoMVC\Repositories\Contracts;
 use TodoMVC\Repositories\Eloquent\Models\AbstractModel;
@@ -43,10 +41,10 @@ abstract class AbstractRepository implements Contracts\RepositoryInterface {
     {
 
         if (is_null($paging)) {
-            return $this->model->all();
+            return $this->model->all()->all();
         } else {
             $query = $this->model->newQueryWithoutScopes();
-            return $this->paginated($query, $paging->getPerPage(), $paging->getPage());
+            return $this->paginated($query, $paging->getPerPage(), $paging->getPage())->all();
         }
 
     }
@@ -89,8 +87,5 @@ abstract class AbstractRepository implements Contracts\RepositoryInterface {
         $paginator = new LengthAwarePaginator($query, $count, $limit, $page);
         return $paginator->getCollection();
     }
-
-
-
 
 }

@@ -20,8 +20,18 @@ Route::group([
         'namespace' => 'v1',
         'prefix' => 'v1'
     ], function() {
-        Route::resource('checklists', 'CheckListsAPIController');
-        Route::resource('checklists.tasks', 'TasksAPIController');
+        Route::resource('checklists', 'CheckListsAPIController', [
+            'except' => [
+                'create',
+                'edit'
+            ]
+        ]);
+        Route::resource('checklists.tasks', 'TasksAPIController', [
+            'except' => [
+                'create',
+                'edit'
+            ]
+        ]);
     });
 
 });
