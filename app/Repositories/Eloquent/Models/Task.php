@@ -10,15 +10,7 @@ use TodoMVC\Models\TaskInterface;
  */
 class Task extends AbstractModel implements TaskInterface
 {
-    /**
-     * @var array
-     */
-    public static $rules = array(
-        'name'                  => 'required',
-        'email'                 => 'required|email|unique:users',
-        'password'              => 'required|alpha_num|min:8|confirmed',
-        'password_confirmation' => 'required|alpha_num|min:8',
-    );
+
 
 
     public function getTitle()
