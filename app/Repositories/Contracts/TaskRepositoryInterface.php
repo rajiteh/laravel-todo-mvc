@@ -2,4 +2,8 @@
 
 namespace TodoMVC\Repositories\Contracts;
 
-interface TaskRepositoryInterface extends RepositoryInterface {}
+interface TaskRepositoryInterface extends RepositoryInterface {
+
+
+    public function ownedByCheckList($checklistId);
+}

@@ -11,6 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group([
+    'namespace' => 'API',
+    'prefix' => 'api',
+], function() {
+
+    Route::group([
+        'namespace' => 'v1',
+        'prefix' => 'v1'
+    ], function() {
+        Route::resource('checklists', 'CheckListsAPIController');
+        Route::resource('checklists.tasks', 'TasksAPIController');
+    });
+
 });
+
+
