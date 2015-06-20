@@ -22,13 +22,11 @@ Route::group([
     ], function() {
         Route::resource('checklists', 'CheckListsAPIController', [
             'except' => [
-                'create',
                 'edit'
             ]
         ]);
         Route::resource('checklists.tasks', 'TasksAPIController', [
             'except' => [
-                'create',
                 'edit'
             ]
         ]);

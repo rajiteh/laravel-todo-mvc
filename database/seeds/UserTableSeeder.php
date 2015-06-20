@@ -18,7 +18,7 @@ class UserTableSeeder extends Seeder
         foreach(range(1,10) as $index)
         {
             /* @var $user TodoMVC\Models\UserInterface */
-            $user = App::make('TodoMVC\Models\UserInterface');
+            $user = $userRepository->newInstance();
 
             $user->setName(str_replace('.', '_', $faker->name));
             $user->setEmail("user{$index}@example.com");

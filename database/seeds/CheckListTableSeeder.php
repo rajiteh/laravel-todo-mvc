@@ -25,7 +25,7 @@ class CheckListTableSeeder extends Seeder
             foreach(range(1,10) as $index)
             {
                 /* @var $checklist TodoMVC\Models\CheckListInterface */
-                $checklist = App::make('TodoMVC\Models\CheckListInterface');
+                $checklist = $checklistRepository->newInstance();
                 $checklist->setUserId($user->getId());
                 $checklist->setName($faker->sentence(3));
                 $checklistRepository->save($checklist);

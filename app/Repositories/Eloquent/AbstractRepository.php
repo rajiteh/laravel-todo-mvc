@@ -34,6 +34,15 @@ abstract class AbstractRepository implements Contracts\RepositoryInterface {
     }
 
     /**
+     * @return ModelInterface
+     */
+    public function newInstance()
+    {
+        return new $this->model();
+    }
+
+
+    /**
      * @param PageableInterface $paging
      * @return array
      */
@@ -49,7 +58,7 @@ abstract class AbstractRepository implements Contracts\RepositoryInterface {
 
     }
 
-    public function save(ModelInterface $data)
+    public function save(ModelInterface &$data)
     {
         $expectedClass = get_class($this->model);
         $receivedClass = get_class($data);

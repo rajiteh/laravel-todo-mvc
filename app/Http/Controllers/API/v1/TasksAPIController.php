@@ -3,7 +3,12 @@
 namespace TodoMVC\Http\Controllers\API\v1;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\App;
+use TodoMVC\Exceptions\ValidationException;
 use TodoMVC\Repositories\Contracts\TaskRepositoryInterface as TaskRepository;
+use TodoMVC\Services\Validation\TaskValidator as TaskValidator;
+use TodoMVC\Models\TaskInterface as TaskInterface;
 
 class TasksAPIController extends APIController
 {
@@ -13,8 +18,14 @@ class TasksAPIController extends APIController
      */
     private $repository;
 
-    public function __construct(TaskRepository $checklist) {
+    /**
+     * @var TaskValidator
+     */
+    private $validator;
+
+    public function __construct(TaskRepository $checklist, TaskValidator $validator) {
         $this->repository = $checklist;
+        $this->validator = $validator;
     }
 
 
@@ -34,9 +45,11 @@ class TasksAPIController extends APIController
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $req, $checklistId)
     {
-        //
+        /* @var $task TaskInterface */
+        $task = $this->repository->newInstance();
+        return $this->performEdit($req, $task, $checklistId);
     }
 
 
@@ -58,9 +71,20 @@ class TasksAPIController extends APIController
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $req, $checklistId, $taskId)
     {
-        //
+
+        /* @var $task TaskInterface */
+        $task = $this->repository->find($taskId);
+
+        if (is_null($task)) {
+            return self::jsonError($req, "Task does not exist.");
+        }
+        if ($task->getCheckListId() != $checklistId) {
+            return self::jsonError($req, "Task does not belong to the checklist.");
+        }
+
+        return $this->performEdit($req, $task, $checklistId);
     }
 
     /**
@@ -71,6 +95,27 @@ class TasksAPIController extends APIController
      */
     public function destroy($id)
     {
-        //
+        return 'wtf';
+    }
+
+    private function performEdit($req, $task, $checklistId) {
+
+        $requestData = array_merge($task->toArray(), $req->all());
+        $requestData['check_list_id'] = $checklistId;
+
+        try {
+            $this->validator->validateModel($requestData, $task);
+
+            $task->setCheckListId($requestData['check_list_id']);
+
+            $task->setTitle($requestData['title']);
+            $task->setDescription($requestData['description']);
+
+            $this->repository->save($task);
+
+            return $this->show($req, $checklistId, $task->getId());
+        } catch (ValidationException $e) {
+            return self::jsonError($req, $e->getErrors()->toArray());
+        }
     }
 }

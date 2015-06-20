@@ -7,7 +7,10 @@ use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
+use TodoMVC\Exceptions\ValidationException;
 use TodoMVC\Repositories\Contracts\CheckListRepositoryInterface as CheckListRepository;
+use TodoMVC\Services\Validation\CheckListValidator;
+use TodoMVC\Models\CheckListInterface;
 
 /**
  * Class CheckListsController
@@ -20,9 +23,11 @@ class CheckListsAPIController extends APIController
      * @var CheckListRepository
      */
     private $repository;
+    private $validator;
 
-    public function __construct(CheckListRepository $checklist) {
+    public function __construct(CheckListRepository $checklist, CheckListValidator $validator) {
         $this->repository = $checklist;
+        $this->validator = $validator;
     }
 
     /**
@@ -41,9 +46,11 @@ class CheckListsAPIController extends APIController
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $req)
     {
-
+        /* @var $checklist CheckListInterface */
+        $checklist = $this->repository->newInstance();
+        return $this->performEdit($req, $checklist);
     }
 
     /**
@@ -64,9 +71,11 @@ class CheckListsAPIController extends APIController
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $req, $id)
     {
-
+        /* @var $checklist CheckListInterface */
+        $checklist = $this->repository->find($id);
+        return $this->performEdit($req, $checklist);
     }
 
     /**
@@ -78,5 +87,22 @@ class CheckListsAPIController extends APIController
     public function destroy($id)
     {
         //
+    }
+
+    private function performEdit($req, CheckListInterface $checklist) {
+
+        $requestData = array_merge($checklist->toArray(), $req->all());
+
+        try {
+            $this->validator->validateModel($requestData, $checklist);
+
+            $checklist->setName($requestData['name']);
+            $checklist->setUserId($requestData['user_id']);
+            $this->repository->save($checklist);
+
+            return $this->show($req, $checklist->getId());
+        } catch (ValidationException $e) {
+            return self::jsonError($req, $e->getErrors()->toArray());
+        }
     }
 }

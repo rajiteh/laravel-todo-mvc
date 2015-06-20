@@ -26,7 +26,7 @@ class TaskTableSeeder extends Seeder
             foreach(range(1,10) as $index)
             {
                 /* @var $task TodoMVC\Models\TaskInterface */
-                $task = App::make('TodoMVC\Models\TaskInterface');
+                $task = $taskRepository->newInstance();
 
                 $task->setCheckListId($checklist->getId());
                 $task->setTitle($faker->sentence(4));

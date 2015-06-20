@@ -45,21 +45,34 @@ abstract class APIController extends Controller {
      * @param Request $req
      * @param $data
      * @param PageableInterface $paging
+     * @param $code
      * @return Response
      */
-    public static function jsonResponse(Request $req, $data, PageableInterface $paging = null) {
+    public static function jsonResponse(Request $req, $data, PageableInterface $paging = null, $code = Response::HTTP_OK) {
         //TODO: Implement paging support
         return (new Response(self::getEncoderInstance($req)->encode($data)))
-            ->header('Content-Type', 'application/json');
+            ->header('Content-Type', 'application/json')->setStatusCode($code);
     }
 
     /**
      * @param Request $req
      * @param $message
+     * @param $code
      * @return Response
      */
-    public static function jsonError(Request $req, $message) {
-        return (new Response(self::getEncoderInstance($req)->error(new Error($message))))
-            ->header('Content-Type', 'application/json');
+    public static function jsonError(Request $req, $message, $code = Response::HTTP_BAD_REQUEST ) {
+
+        if (is_array($message))
+        {
+            $messages = array_map(function($msg) {
+                $msg = is_array($msg) ? implode(", ", $msg) : $msg;
+                return new Error(null, null, null, null, null, $msg);
+            }, $message);
+
+        } else {
+            $messages = [ new Error(null, null, null, null, null, $message) ];
+        }
+        return (new Response(self::getEncoderInstance($req)->errors($messages)))
+            ->header('Content-Type', 'application/json')->setStatusCode($code);
     }
 }
