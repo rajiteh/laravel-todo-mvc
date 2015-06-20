@@ -10,15 +10,20 @@ class UserTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-        User::truncate();
+        /* @var $userRepository TodoMVC\Repositories\Contracts\UserRepositoryInterface */
+        $userRepository = App::make('TodoMVC\Repositories\Contracts\UserRepositoryInterface');
+
+        $userRepository->deleteAll();
 
         foreach(range(1,10) as $index)
         {
-            User::create([
-                'name' => str_replace('.', '_', $faker->name),
-                'email' => "user{$index}@example.com",
-                'password' => "password{$index}"
-            ]);
+            /* @var $user TodoMVC\Models\UserInterface */
+            $user = App::make('TodoMVC\Models\UserInterface');
+
+            $user->setName(str_replace('.', '_', $faker->name));
+            $user->setEmail("user{$index}@example.com");
+            $user->setPassword("password{$index}");
+            $userRepository->save($user);
         }
 
 

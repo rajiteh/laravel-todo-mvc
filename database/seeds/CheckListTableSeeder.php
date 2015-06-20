@@ -1,26 +1,34 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use TodoMVC\User as User;
-use TodoMVC\CheckList as CheckList;
 
 class CheckListTableSeeder extends Seeder
 {
     public function run()
     {
 
-        CheckList::truncate();
+
 
         $faker = Faker\Factory::create();
         $faker->addProvider(new Faker\Provider\Lorem($faker));
 
-        foreach (User::all() as $user) {
+        /* @var $userRepository TodoMVC\Repositories\Contracts\UserRepositoryInterface */
+        $userRepository = App::make('TodoMVC\Repositories\Contracts\UserRepositoryInterface');
+
+        /* @var $checklistRepository TodoMVC\Repositories\Contracts\CheckListRepositoryInterface */
+        $checklistRepository = App::make('TodoMVC\Repositories\Contracts\CheckListRepositoryInterface');
+
+        $checklistRepository->deleteAll();
+
+        /* @var $user TodoMVC\Models\UserInterface */
+        foreach ($userRepository->all() as $user) {
             foreach(range(1,10) as $index)
             {
-                CheckList::create([
-                    'user_id' => $user->id,
-                    'name' => $faker->sentence(3)
-                ]);
+                /* @var $checklist TodoMVC\Models\CheckListInterface */
+                $checklist = App::make('TodoMVC\Models\CheckListInterface');
+                $checklist->setUserId($user->getId());
+                $checklist->setName($faker->sentence(3));
+                $checklistRepository->save($checklist);
             }
         }
 
