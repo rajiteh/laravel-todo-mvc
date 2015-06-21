@@ -7,10 +7,9 @@
  */
 
 namespace TodoMVC\Models;
+use Illuminate\Contracts\Support\Arrayable;
 use TodoMVC\Models\Contracts\HasIdContract;
-use TodoMVC\Models\Contracts\PersistableContract;
-use TodoMVC\Models\Contracts\ResettableContract;
 
-interface ModelInterface extends  HasIdContract {
+interface ModelInterface extends  HasIdContract, Arrayable {
 
 }
