@@ -7,3 +7,6 @@
 ._*
 
 storage/database.sqlite
+
+public/js/
+public/css/

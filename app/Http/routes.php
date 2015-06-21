@@ -34,4 +34,4 @@ Route::group([
 
 });
 
-
+Route::get('/', [ 'as' => 'home', 'uses' => 'HomePageController@show' ]);

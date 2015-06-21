@@ -1,3 +1,4 @@
+process.env.DISABLE_NOTIFIER = true;
 var elixir = require('laravel-elixir');
 
 /*
@@ -12,5 +13,18 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.less('app.less');
+    mix.less().coffee();
+
+    mix.scripts([
+        "modernizr-2.8.3-respond-1.4.2.min.js",
+        "jquery-1.11.2.min.js",
+        "bootstrap.js",
+    ], 'public/js/vendor.js');
+
+    mix.styles([
+        'bootstrap.css',
+        'bootstrap-theme.css'
+    ], 'public/css/vendor.css');
+
+
 });
