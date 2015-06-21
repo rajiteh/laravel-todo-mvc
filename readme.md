@@ -18,6 +18,7 @@ An over engineered laravel app pretends to be a Todo app.
 
 ### Setting up
 1. Clone the repository
+1. `vagrant plugin install vagrant-hostmanager`
 1. `vagrant up`
 1. `vagrant ssh`
 1. `cd /var/www/`

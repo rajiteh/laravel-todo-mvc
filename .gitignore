@@ -10,3 +10,4 @@ storage/database.sqlite
 
 #public/js/
 #public/css/
+.vagrant

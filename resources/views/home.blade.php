@@ -10,7 +10,7 @@
                 <p class="buttons lead">
                     <a ng-click="checkListCtrl.newCheckList()">[New List]</a>
                 </p>
-                <div class="col-md-4 checklist" ng-repeat="list in checkListCtrl.checklists.data">
+                <div class="col-md-12 checklist" ng-repeat="list in checkListCtrl.checklists.data">
 
                     <p>
                         <span class="h2"> @{{ list.attributes.name }} </span>
