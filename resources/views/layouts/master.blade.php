@@ -1,4 +1,5 @@
 <!doctype html>
+<html ng-app="todoApp">
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
@@ -31,8 +32,13 @@
     @include('_partials.footer')
     </div> <!-- /container -->
 
-    {!! HTML::script('//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js') !!}
     {!! HTML::script(URL::asset('js/vendor.js')) !!}
+
+    {!! HTML::script('//ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js') !!}
+    {!! HTML::script('//ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular-resource.min.js') !!}
+    {!! HTML::script('//ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular-route.min.js') !!}
+    {!! HTML::script('//ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular-cookies.min.js') !!}
+
     {!! HTML::script(URL::asset('js/app.js')) !!}
 
 </body>

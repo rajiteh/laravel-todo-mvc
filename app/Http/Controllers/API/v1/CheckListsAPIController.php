@@ -37,7 +37,10 @@ class CheckListsAPIController extends APIController
      */
     public function index(Request $req)
     {
-        return self::jsonResponse($req, $this->repository->all());
+        if (($uid = $req->input('user_id')))
+            return self::jsonResponse($req, $this->repository->ownedByUser($uid));
+        else
+            return self::jsonResponse($req, $this->repository->all());
     }
 
 

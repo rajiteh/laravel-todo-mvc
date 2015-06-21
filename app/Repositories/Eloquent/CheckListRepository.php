@@ -10,4 +10,8 @@ class CheckListRepository extends AbstractRepository implements Contracts\CheckL
     public function __construct(CheckList $model) {
         parent::__construct($model);
     }
+
+    public function ownedByUser($userId) {
+        return $this->model->where('user_id', $userId)->get()->all();
+    }
 }

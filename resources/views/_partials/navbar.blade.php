@@ -9,15 +9,22 @@
             </button>
             <a class="navbar-brand" href="#">Project name</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <form class="navbar-form navbar-right" role="form">
+        <div id="navbar" class="navbar-collapse collapse" ng-controller="LoginController as loginCtrl">
+            <form class="navbar-form navbar-right ng-hide" role="form" ng-hide="loginCtrl.authorized()">
                 <div class="form-group">
-                    <input type="text" placeholder="Email" class="form-control">
+                    <input type="text" placeholder="Email" class="form-control" ng-model="loginCtrl.credentials.email">
                 </div>
                 <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control">
+                    <input type="password" placeholder="Password" class="form-control" ng-model="loginCtrl.credentials.password">
                 </div>
-                <button type="submit" class="btn btn-success">Sign in</button>
+                <button type="submit" class="btn btn-success" ng-click="loginCtrl.login()">Sign in</button>
+            </form>
+
+            <form class="navbar-form navbar-right ng-hide" role="form" ng-show="loginCtrl.authorized()">
+                <div class="form-group greeting-text">
+                    Hello @{{ loginCtrl.user.name }}!
+                </div>
+                <button type="submit" class="btn btn-success" ng-click="loginCtrl.logout()">Sign out</button>
             </form>
         </div><!--/.navbar-collapse -->
     </div>
