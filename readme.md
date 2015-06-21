@@ -23,6 +23,7 @@ An over engineered laravel app pretends to be a Todo app.
 1. `vagrant ssh`
 1. `cd /var/www/`
 1. Set up `.env` file from the sample (below, change the key)
+1. `composer update`
 1. `touch storage/database.sqlite`
 1. `php artisan migrate`
 1. `php artisan db:seed`
