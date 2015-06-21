@@ -89,7 +89,8 @@ class CheckListsAPIController extends APIController
      */
     public function destroy($id)
     {
-        //
+        $this->repository->delete($id);
+        return (new Response())->setStatusCode(Response::HTTP_OK);
     }
 
     private function performEdit($req, CheckListInterface $checklist) {

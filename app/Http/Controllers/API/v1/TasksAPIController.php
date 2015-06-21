@@ -93,9 +93,10 @@ class TasksAPIController extends APIController
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($checkListId, $id)
     {
-        return 'wtf';
+        $this->repository->delete($id);
+        return (new Response())->setStatusCode(Response::HTTP_OK);
     }
 
     private function performEdit($req, $task, $checklistId) {
@@ -109,8 +110,8 @@ class TasksAPIController extends APIController
             $task->setCheckListId($requestData['check_list_id']);
 
             $task->setTitle($requestData['title']);
-            $task->setDescription($requestData['description']);
-
+            $task->setDescription(isset($requestData['description']) ?: '');
+            $task->setDone(isset($requestData['done']) ?: "0");
             $this->repository->save($task);
 
             return $this->show($req, $checklistId, $task->getId());
