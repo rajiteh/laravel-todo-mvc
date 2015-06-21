@@ -12,7 +12,7 @@ class TaskRepository extends AbstractRepository implements Contracts\TaskReposit
 
     public function ownedByCheckList($checklistId)
     {
-        return $this->model->where('check_list_id', $checklistId)->get()->all();
+        return $this->model->where('check_list_id', $checklistId)->get()->reverse()->all();
     }
 
 }

@@ -50,10 +50,10 @@ abstract class AbstractRepository implements Contracts\RepositoryInterface {
     {
 
         if (is_null($paging)) {
-            return $this->model->all()->all();
+            return $this->model->all()->reverse()->all();
         } else {
             $query = $this->model->newQueryWithoutScopes();
-            return $this->paginated($query, $paging->getPerPage(), $paging->getPage())->all();
+            return $this->paginated($query, $paging->getPerPage(), $paging->getPage())->reverse()->all();
         }
 
     }

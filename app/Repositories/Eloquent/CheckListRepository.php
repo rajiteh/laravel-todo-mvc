@@ -12,6 +12,6 @@ class CheckListRepository extends AbstractRepository implements Contracts\CheckL
     }
 
     public function ownedByUser($userId) {
-        return $this->model->where('user_id', $userId)->get()->all();
+        return $this->model->where('user_id', $userId)->get()->reverse()->all();
     }
 }
