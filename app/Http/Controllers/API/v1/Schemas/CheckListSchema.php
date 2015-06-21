@@ -15,6 +15,9 @@ use Neomerx\JsonApi\Schema\SchemaProvider;
 
 class CheckListSchema extends SchemaProvider {
 
+    protected $isShowAttributesInIncluded = true;
+    protected $isShowRelShipsInIncluded = false;
+
     protected $resourceType = 'checklist';
     protected $selfSubUrl   = '/checklists/';
 
@@ -46,19 +49,12 @@ class CheckListSchema extends SchemaProvider {
     }
 
     /**
-     * @param CheckListInterface $resource
-     *
      * @return array
      */
-    public function getRelationships($resource) {
-
-        /* @var $taskRepo TaskRepositoryInterface */
-        $taskRepo = App::make('TodoMVC\Repositories\Contracts\TaskRepositoryInterface');
+    public function getIncludePaths()
+    {
         return [
-            'tasks' => [
-                self::DATA => $taskRepo->ownedByCheckList($resource->getId())
-            ]
+            'tasks'
         ];
-
     }
 }
