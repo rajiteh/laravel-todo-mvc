@@ -22,7 +22,7 @@ class CheckListTableSeeder extends Seeder
 
         /* @var $user TodoMVC\Models\UserInterface */
         foreach ($userRepository->all() as $user) {
-            foreach(range(1,10) as $index)
+            foreach(range(1,3) as $index)
             {
                 /* @var $checklist TodoMVC\Models\CheckListInterface */
                 $checklist = $checklistRepository->newInstance();

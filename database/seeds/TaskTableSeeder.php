@@ -23,7 +23,7 @@ class TaskTableSeeder extends Seeder
 
         /* @var $checklist TodoMVC\Models\CheckListInterface */
         foreach ($checklistRepository->all() as $checklist) {
-            foreach(range(1,10) as $index)
+            foreach(range(1,5) as $index)
             {
                 /* @var $task TodoMVC\Models\TaskInterface */
                 $task = $taskRepository->newInstance();
