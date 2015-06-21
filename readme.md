@@ -26,6 +26,7 @@ An over engineered laravel app pretends to be a Todo app.
 1. `touch storage/database.sqlite`
 1. `php artisan migrate`
 1. `php artisan db:seed`
+1. Open http://laravel-todo-mvc.vagrant/
 
 #### Development
 1. Steps from Setting Up
