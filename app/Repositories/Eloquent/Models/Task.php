@@ -42,4 +42,12 @@ class Task extends AbstractModel implements TaskInterface
     {
         $this->check_list_id = $id;
     }
+
+    public function getDone() {
+        return $this->done;
+    }
+
+    public function setDone($done) {
+        $this->done = $done;
+    }
 }

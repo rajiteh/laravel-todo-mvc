@@ -22,5 +22,8 @@ interface TaskInterface extends ModelInterface {
     public function getCheckListId();
     public function setCheckListId($id);
 
+    public function getDone();
+    public function setDone($done);
+
 
 }

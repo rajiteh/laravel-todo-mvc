@@ -41,6 +41,7 @@ class TaskSchema extends SchemaProvider{
         return [
             'title' => $resource->getTitle(),
             'description' => $resource->getDescription(),
+            'done' => $resource->getDone(),
             'checklist_id' => $resource->getCheckListId()
         ];
     }
