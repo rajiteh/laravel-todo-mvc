@@ -22,7 +22,8 @@ abstract class AbstractValidator {
      * @var IlluminateValidator
      */
     protected $_validator;
-    protected $rules;
+    protected $rules = [];
+    protected $custom_errors = [];
 
     public function __construct( IlluminateValidator $validator ) {
         $this->_validator = $validator;
@@ -30,7 +31,8 @@ abstract class AbstractValidator {
 
     public function validate( array $data, array $rules = array(), array $custom_errors = array() ) {
 
-        $rules = empty($rules) ? $this->rules : $rules;;
+        $rules = empty($rules) ? $this->rules : $rules;
+        $custom_errors = empty($custom_errors) ? $this->custom_errors : $custom_errors;
 
         //use Laravel's Validator and validate the data
         $validation = $this->_validator->make( $data, $rules, $custom_errors );

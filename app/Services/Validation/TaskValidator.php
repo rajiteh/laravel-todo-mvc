@@ -16,7 +16,15 @@ class TaskValidator extends AbstractModelValidator {
      */
     protected $rules = array(
         'title'                  => 'required',
-        'check_list_id'          => 'required',
+        'check_list_id'          => 'required|numeric',
+        'done'                   => 'boolean'
+    );
+
+    /**
+     * @var array Custom errors for this validator
+     */
+    protected $custom_errors = array(
+        'boolean' => 'The attribute ":attribute" must be one of "0" and "1"'
     );
 
 }
