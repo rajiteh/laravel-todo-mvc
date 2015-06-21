@@ -21,9 +21,6 @@
             </form>
 
             <form class="navbar-form navbar-right ng-hide" role="form" ng-show="loginCtrl.authorized()">
-                <div class="form-group greeting-text">
-                    Hello @{{ loginCtrl.user.name }}!
-                </div>
                 <button type="submit" class="btn btn-success" ng-click="loginCtrl.logout()">Sign out</button>
             </form>
         </div><!--/.navbar-collapse -->

@@ -5,7 +5,7 @@ angular.module('todoApp').controller 'LoginController'
     ($log, $scope, SessionService) ->
 
 
-      @user = SessionService.getCurrentUser()
+      @user = false
 
       @authorized = -> SessionService.authorized()
 
@@ -14,11 +14,16 @@ angular.module('todoApp').controller 'LoginController'
       @login = ->
         SessionService.login(@credentials)
         .then ->
-          false
+          @user = SessionService.getCurrentUser()
         , (err) =>
           alert(err)
 
       @logout = -> SessionService.logout()
 
+      init = =>
+        @user = SessionService.getCurrentUser()
+
+      init()
       @
+
   ]

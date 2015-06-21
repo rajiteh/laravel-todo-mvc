@@ -15,6 +15,9 @@
 
     {!! HTML::style(URL::asset('css/vendor.css')) !!}
     {!! HTML::style(URL::asset('css/app.css')) !!}
+    {!! HTML::style(URL::asset('//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css')) !!}
+
+
 
 </head>
 <body>

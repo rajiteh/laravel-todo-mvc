@@ -64,7 +64,6 @@ angular.module('todoApp.services').factory('SessionService', [
 
 
     getCurrentUser = ->
-      return currentUser if currentUser
       cookieUser = $cookieStore.get(USER_COOKIE)
       if cookieUser?
         currentUser = cookieUser
