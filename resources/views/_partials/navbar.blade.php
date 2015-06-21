@@ -7,21 +7,45 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Project name</a>
+            <a class="navbar-brand" href="#">Todo MVC</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse" ng-controller="LoginController as loginCtrl">
             <form class="navbar-form navbar-right ng-hide" role="form" ng-hide="loginCtrl.authorized()">
                 <div class="form-group">
-                    <input type="text" placeholder="Email" class="form-control" ng-model="loginCtrl.credentials.email">
+                    {!! csrf_field()  !!}
+                    {!! Form::email('email', old('email'), [
+                        "placeholder" => "Email",
+                        "class" => "form-control",
+                        "ng-model" => "loginCtrl.credentials.email",
+                        "required" => "required"
+                    ]) !!}
                 </div>
                 <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control" ng-model="loginCtrl.credentials.password">
+
+                    {!! Form::password('password', [
+                    "placeholder" => "Password",
+                    "class" => "form-control",
+                    "ng-model" => "loginCtrl.credentials.password",
+                    "required" => "required"
+                    ]) !!}
                 </div>
-                <button type="submit" class="btn btn-success" ng-click="loginCtrl.login()">Sign in</button>
+
+                {!! Form::submit('Sign In', [
+                    "class" => "btn btn-success",
+                    "ng-click" => "loginCtrl.login()"
+                ]) !!}
+
+                {!! HTML::link(URL::action('Auth\AuthController@getRegister'), 'Register', [
+                    "class" => "btn btn-success"
+                ]) !!}
             </form>
 
             <form class="navbar-form navbar-right ng-hide" role="form" ng-show="loginCtrl.authorized()">
-                <button type="submit" class="btn btn-success" ng-click="loginCtrl.logout()">Sign out</button>
+                {!! csrf_field()  !!}
+                {!! Form::submit('Sign out', [
+                "class" => "btn btn-success",
+                "ng-click" => "loginCtrl.logout()"
+                ]) !!}
             </form>
         </div><!--/.navbar-collapse -->
     </div>

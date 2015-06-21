@@ -22,7 +22,7 @@ class UserTableSeeder extends Seeder
 
             $user->setName(str_replace('.', '_', $faker->name));
             $user->setEmail("user{$index}@example.com");
-            $user->setPassword("password{$index}");
+            $user->setPassword(bcrypt("password{$index}"));
             $userRepository->save($user);
         }
 

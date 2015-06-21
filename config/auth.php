@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'model' => TodoMVC\User::class,
+    'model' => TodoMVC\Repositories\Eloquent\Models\User::class,
 
     /*
     |--------------------------------------------------------------------------

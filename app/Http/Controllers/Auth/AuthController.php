@@ -2,8 +2,12 @@
 
 namespace TodoMVC\Http\Controllers\Auth;
 
-use TodoMVC\User;
-use Validator;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use TodoMVC\Repositories\Eloquent\Models\User;
+use Illuminate\Support\Facades\Validator;
 use TodoMVC\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -22,6 +26,7 @@ class AuthController extends Controller
 
     use AuthenticatesAndRegistersUsers;
 
+    protected $redirectTo = '/';
     /**
      * Create a new authentication controller instance.
      *
@@ -61,4 +66,34 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    public function getLogin()
+    {
+        return redirect('/');
+    }
+
+
+    public function postLogin(Request $request)
+    {
+
+        $this->validate($request, [
+            'email' => 'required|email', 'password' => 'required',
+        ]);
+
+        $credentials = $this->getCredentials($request);
+
+        if (Auth::attempt($credentials, $request->has('remember'))) {
+            return response()->json(Auth::user()->toArray());
+        } else {
+            return (new Response())->setStatusCode(Response::HTTP_FORBIDDEN);
+        }
+    }
+
+    public function getLogout()
+    {
+        Auth::logout();
+        return new Response();
+    }
+
+
 }

@@ -28,6 +28,17 @@
     @include('_partials.navbar')
 
     <div class="container">
+        @if (Session::has('errors'))
+
+            @foreach (Session::get('errors')->toArray() as $error)
+                <div class="alert alert-danger">
+                    <p>{{  array_pop($error) }}</p>
+                </div>
+            @endforeach
+
+
+        @endif
+
     @yield('content')
 
     <hr>

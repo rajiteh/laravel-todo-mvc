@@ -16,7 +16,6 @@ angular.module('todoApp').controller 'CheckListController'
 
 
       @loadTasksFor = (index, checklistId) ->
-        console.log 'tryina get atasks', index, checklistId
         @tasks[index] = Task.get {check_list_id: checklistId}
 
       @toggleTask = (parentIndex, index) ->
@@ -30,7 +29,7 @@ angular.module('todoApp').controller 'CheckListController'
         newName = prompt("Change name?", @checklists.data[index].attributes.name)
         if newName.length > 0
           @checklists.data[index].attributes.name = newName
-          saveChecklist(index, old)
+          saveChecklist(index)
 
       @deleteCheckList = (index) ->
         CheckList.delete id: @checklists.data[index].id

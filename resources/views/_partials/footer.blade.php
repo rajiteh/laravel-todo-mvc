@@ -1,3 +1,3 @@
 <footer>
-    <p>&copy; Company 2015</p>
+    <p>&copy; Todo MVC 2015</p>
 </footer>

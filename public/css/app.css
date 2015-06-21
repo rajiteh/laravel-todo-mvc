@@ -1,0 +1,20 @@
+body > .container {
+  margin-top: 80px;
+}
+.greeting-text {
+  color: white;
+}
+.ng-hide:not(.ng-hide-animate) {
+  display: block!important;
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+.checklist li {
+  list-style: none;
+}
+.checklist li .lead-no-margin {
+  margin-bottom: 0;
+}
+
+/*# sourceMappingURL=app.css.map */

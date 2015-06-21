@@ -12,6 +12,7 @@
 */
 
 Route::group([
+    'middleware' => 'auth',
     'namespace' => 'API',
     'prefix' => 'api',
 ], function() {
@@ -34,4 +35,13 @@ Route::group([
 
 });
 
-Route::get('/', [ 'as' => 'home', 'uses' => 'HomePageController@show' ]);
+Route::get('/', [ 'as' => 'ho', 'uses' => 'HomePageController@show' ]);
+
+
+// Authentication routes...
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+// Registration routes...
+Route::get('auth/register', 'Auth\AuthController@getRegister');
+Route::post('auth/register', 'Auth\AuthController@postRegister');
